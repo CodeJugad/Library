@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         drawerLayout = findViewById(R.id.drawerLayout)
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
-        frameLayout = findViewById(R.id.frame)
+        frameLayout = findViewById(R.id.frameLayout)
         navigationView = findViewById(R.id.navigationView)
 
         setUpToolbar()
@@ -44,18 +44,25 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.dashboard ->{
-                    // code
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, DashboardFragment()).commit()
                     Toast.makeText(this@MainActivity,"dashboard clicked",Toast.LENGTH_SHORT).show()
                 }
                 R.id.favourites ->{
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, FavouritesFragment()).commit()
                     // code
                     Toast.makeText(this@MainActivity,"favourites clicked",Toast.LENGTH_SHORT).show()
                 }
                 R.id.profile ->{
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, ProfileFragment()).commit()
                     // code
                     Toast.makeText(this@MainActivity,"profile clicked",Toast.LENGTH_SHORT).show()
                 }
                 R.id.aboutApp ->{
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout, AboutAppFragment()).commit()
                     // code
                     Toast.makeText(this@MainActivity,"aboutApp clicked",Toast.LENGTH_SHORT).show()
                 }
