@@ -1,4 +1,4 @@
-package com.example.library
+package com.example.library.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +11,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.library.*
+import com.example.library.fragment.AboutAppFragment
+import com.example.library.fragment.DashboardFragment
+import com.example.library.fragment.FavouritesFragment
+import com.example.library.fragment.ProfileFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
