@@ -1,26 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlContent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgBookImage"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_margin="5dp"
         app:srcCompat="@drawable/ic_about_app" />
 
     <TextView
-        android:id="@+id/txtRecyclerRowItem"
+        android:id="@+id/txtBookName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:padding="5dp"
+        android:textSize="15sp"
+        android:padding="2dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="24dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="TextView" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/imgBookImage"
+        android:textStyle="bold"
+        android:text="Physics" />
+
+    <TextView
+        android:id="@+id/txtBookAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_below="@+id/txtBookName"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/imgBookImage"
+        android:text="HC Verma" />
+
+    <TextView
+        android:id="@+id/txtBookPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_below="@+id/txtBookAuthor"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/imgBookImage"
+        android:text="Rs.250" />
+
+    <TextView
+        android:id="@+id/txtBookRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:drawableLeft="@drawable/ic_book_rating"
+        android:textColor="#CD9B05"
+        android:text="4.5" />
 
 </RelativeLayout>
