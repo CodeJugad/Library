@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/Documents/GitHub/Library/app/src/main/res/drawable-anydpi/ic_app_home.xml" value="0.1945" />
+        <entry key="..\:/Users/user/Documents/GitHub/Library/app/src/main/res/drawable-anydpi/ic_app_launcher.xml" value="0.1945" />
+        <entry key="..\:/Users/user/Documents/GitHub/Library/app/src/main/res/drawable-anydpi/ic_book_rating.xml" value="0.1945" />
         <entry key="..\:/Users/user/Documents/GitHub/Library/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Documents/GitHub/Library/app/src/main/res/layout/drawer_header.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/user/Documents/GitHub/Library/app/src/main/res/layout/fragment_about_app.xml" value="0.20427305888483585" />
