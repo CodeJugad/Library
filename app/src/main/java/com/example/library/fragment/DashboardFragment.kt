@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -29,6 +31,9 @@ class DashboardFragment : Fragment() {
     lateinit var recyclerDashboard : RecyclerView
     lateinit var layoutManager: LinearLayoutManager
 
+    lateinit var progressLayout : RelativeLayout
+    lateinit var progressBar : ProgressBar
+
     val bookInfoList = arrayListOf<Book>(
         Book("1","Physics","hc verma","rs.299","4.5",R.drawable.ic_profile),
         Book("1","Chemistry","hc verma","rs.299","4.5",R.drawable.ic_profile),
@@ -45,6 +50,10 @@ class DashboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
+
+        progressBar = view.findViewById(R.id.progressBar)
+        progressLayout = view.findViewById(R.id.progressLayout)
+        progressLayout.visibility = View.VISIBLE
 
         recyclerDashboard = view.findViewById(R.id.recyclerDashboard)
 
@@ -68,40 +77,59 @@ class DashboardFragment : Fragment() {
         if (ConnectionManger().checkConnectivity(activity as Context)){
             val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET,url,null,Response.Listener {
                 println("Response is $it")
-//            val success = it.getBoolean("success")
-                val success = true
-                if (success){
-                    val data = it.getJSONArray("books")
-                    for (i in 0 until data.length()){
-                        val bookJsonObject = data.getJSONObject(i)
-                        val bookObject = Book(
-                            bookJsonObject.getString("isbn"),
-                            bookJsonObject.getString("title"),
-                            bookJsonObject.getString("author"),
-                            bookJsonObject.getString("pages"),
-                            bookJsonObject.getString("pages"),
-                            R.drawable.ic_profile
-                        )
-                        bookInfoList.add(bookObject)
-                        var recyclerAdapter = DashboardRecyclerAdapter(activity as Context, bookInfoList)
-
-                        recyclerDashboard.adapter = recyclerAdapter
-                        recyclerDashboard.layoutManager = layoutManager
-
-                        // adding divider line
-                        recyclerDashboard.addItemDecoration(
-                            DividerItemDecoration(
-                                recyclerDashboard.context,
-                                (layoutManager as LinearLayoutManager).orientation
+                try {
+                    progressLayout.visibility = View.GONE
+                    //            val success = it.getBoolean("success")
+                    val success = true
+                    if (success) {
+                        val data = it.getJSONArray("books")
+                        for (i in 0 until data.length()) {
+                            val bookJsonObject = data.getJSONObject(i)
+                            val bookObject = Book(
+                                bookJsonObject.getString("isbn"),
+                                bookJsonObject.getString("title"),
+                                bookJsonObject.getString("author"),
+                                bookJsonObject.getString("pages"),
+                                bookJsonObject.getString("pages"),
+                                R.drawable.ic_profile
                             )
-                        )
-                    }
+                            bookInfoList.add(bookObject)
+                            var recyclerAdapter =
+                                DashboardRecyclerAdapter(activity as Context, bookInfoList)
 
-                }else{
-                    Toast.makeText(activity as Context,"Some Error Occurred!!!",Toast.LENGTH_SHORT).show()
+                            recyclerDashboard.adapter = recyclerAdapter
+                            recyclerDashboard.layoutManager = layoutManager
+
+                            // adding divider line
+                            recyclerDashboard.addItemDecoration(
+                                DividerItemDecoration(
+                                    recyclerDashboard.context,
+                                    (layoutManager as LinearLayoutManager).orientation
+                                )
+                            )
+                        }
+
+                    } else {
+                        Toast.makeText(
+                            activity as Context,
+                            "Some Error Occurred!!!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }catch (e: Exception){
+                    Toast.makeText(
+                        activity as Context,
+                        "Some Unexpected Error Occurred!!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }, Response.ErrorListener {
-                println("Error is $it")
+//                println("Error is $it")
+                Toast.makeText(
+                    activity as Context,
+                    "Volley Error Occurred!!!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }){
                 override fun getHeaders(): MutableMap<String, String> {
                     val headers = HashMap<String,String>()
