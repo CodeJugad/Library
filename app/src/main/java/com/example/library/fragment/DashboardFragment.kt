@@ -34,15 +34,7 @@ class DashboardFragment : Fragment() {
     lateinit var progressLayout : RelativeLayout
     lateinit var progressBar : ProgressBar
 
-    val bookInfoList = arrayListOf<Book>(
-        Book("1","Physics","hc verma","rs.299","4.5",R.drawable.ic_profile),
-        Book("1","Chemistry","hc verma","rs.299","4.5",R.drawable.ic_profile),
-        Book("1","Maths","hc verma","rs.299","4.5",R.drawable.ic_profile),
-        Book("1","History","hc verma","rs.299","4.5",R.drawable.ic_profile),
-        Book("1","Economics","hc verma","rs.299","4.5",R.drawable.ic_profile),
-        Book("1","Hindi","hc verma","rs.299","4.5",R.drawable.ic_profile),
-        Book("1","English","hc verma","rs.299","4.5",R.drawable.ic_profile),
-    )
+    val bookInfoList = arrayListOf<Book>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,26 +64,25 @@ class DashboardFragment : Fragment() {
 //        )
 
         val queue = Volley.newRequestQueue(activity as Context)
-//        val url = "http://13.235.250.119/vl/book/fetch_books/"
-        val url = "https://gist.githubusercontent.com/nanotaboada/6396437/raw/855dd84436be2c86e192abae2ac605743fc3a127/books.json"
+        val url = "http://13.235.250.119/v1/book/fetch_books/"
+//        val url = "https://gist.githubusercontent.com/nanotaboada/6396437/raw/855dd84436be2c86e192abae2ac605743fc3a127/books.json"
         if (ConnectionManger().checkConnectivity(activity as Context)){
             val jsonObjectRequest = object : JsonObjectRequest(Request.Method.GET,url,null,Response.Listener {
                 println("Response is $it")
                 try {
                     progressLayout.visibility = View.GONE
-                    //            val success = it.getBoolean("success")
-                    val success = true
+                    val success = it.getBoolean("success")
                     if (success) {
-                        val data = it.getJSONArray("books")
+                        val data = it.getJSONArray("data")
                         for (i in 0 until data.length()) {
                             val bookJsonObject = data.getJSONObject(i)
                             val bookObject = Book(
-                                bookJsonObject.getString("isbn"),
-                                bookJsonObject.getString("title"),
+                                bookJsonObject.getString("book_id"),
+                                bookJsonObject.getString("name"),
                                 bookJsonObject.getString("author"),
-                                bookJsonObject.getString("pages"),
-                                bookJsonObject.getString("pages"),
-                                R.drawable.ic_profile
+                                bookJsonObject.getString("rating"),
+                                bookJsonObject.getString("price"),
+                                bookJsonObject.getString("image")
                             )
                             bookInfoList.add(bookObject)
                             var recyclerAdapter =
@@ -134,7 +125,7 @@ class DashboardFragment : Fragment() {
                 override fun getHeaders(): MutableMap<String, String> {
                     val headers = HashMap<String,String>()
                     headers["Content-type"] = "application/json"
-//                headers["token"] = "6f6a30929c3919"
+                    headers["token"] = "6f6a30929c3919"
                     return headers
                 }
             }
